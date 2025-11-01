@@ -1,15 +1,15 @@
-const { Datatypes } = require("sequelize");
-const db = require("./database");
+const { DataTypes } = require("sequelize");
+const db = require("./db");
 const bcrypt = require('bcrypt');
 
 const User = db.define("user", {
     emplid: {
-        type: Datatypes.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         unique: true
     },
     email: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false, 
         unique: true, 
         validate: {
@@ -18,10 +18,21 @@ const User = db.define("user", {
     }, 
 
     password_hash: {
-        type: Datatypes.STRING, 
-        allowNull: true,
+        type: DataTypes.STRING, 
+        allowNull: false,
         comment: "Securely hashed password",
     },
+
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+
+    phone_number: {
+        type: DataTypes.STRING, 
+        allowNull: false,
+    }, 
 }, {
     tableName: 'users',
     timestamps: true, 

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User } = require("../database");
 
-router.get("/", async (req, res) => {
+router.get("/users", async (req, res) => {
     try {
         const users = await User.findAll();
         console.log(`Found ${users.length}`);
@@ -11,9 +11,12 @@ router.get("/", async (req, res) => {
             usersCount: users.length,
         });
     } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching users:", error.messae);
+        console.error(error);
+
         res.status(500).json({
             error: "Failed to fetch users",
+            details: error.message,
             message:
             "Check your database connection, and consider running seed file: npm run seed",
         });

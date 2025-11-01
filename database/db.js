@@ -10,3 +10,5 @@ const db = new Sequelize(
      logging: false, // comment this line to enable SQL logging   
     }
 )
+
+module.exports = db;
