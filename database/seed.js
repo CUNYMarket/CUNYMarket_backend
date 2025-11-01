@@ -1,3 +1,4 @@
+require('dotenv').config();
 const db = require("./db");
 const { User, Post, Chat } = require("./index");
 
@@ -55,110 +56,177 @@ const seed = async () => {
 
     // 3️⃣ Create posts (each tied to a userId → User.emplid)
     const posts = await Post.bulkCreate([
-      {
-        title: "TI-84 Plus Calculator",
-        description: "Lightly used calculator in perfect condition. Ideal for math and stats classes.",
-        price: 50.0,
-        category: "Calculators",
-        location: "BMCC Library Entrance",
-        image_url: null,
-        userId: 123456,
-      },
-      {
-        title: "Psychology 101 Textbook",
-        description: "Trade only. Looking to exchange for COM 101 book.",
-        price: null,
-        category: "Textbooks",
-        location: "Cafeteria, 3rd Floor",
-        image_url: null,
-        userId: 789012,
-      },
-      {
-        title: "MacBook Air (2017)",
-        description: "Fully functional, some cosmetic wear. Great for note-taking.",
-        price: 300.0,
-        category: "Electronics",
-        location: "Main Building Lobby",
-        image_url: null,
-        userId: 901234,
-      },
-      {
-        title: "Intro to Statistics Notes",
-        description: "Comprehensive handwritten notes with summaries and solved examples.",
-        price: 15.0,
-        category: "Study Materials",
-        location: "BMCC Library 5th Floor",
-        image_url: null,
-        userId: 345678,
-      },
-      {
-        title: "Reusable Water Bottle (Hydro Flask)",
-        description: "Brand new, never used. Keep drinks cold all day!",
-        price: 20.0,
-        category: "Accessories",
-        location: "FitRec Entrance",
-        image_url: null,
-        userId: 567890,
-      },
-      {
-        title: "COM 2000 Group Project Kit",
-        description: "Poster board, markers, sticky notes, and supplies for presentations.",
-        price: 10.0,
-        category: "Supplies",
-        location: "NAC Study Lounge",
-        image_url: null,
-        userId: 123456,
-      },
-      {
-        title: "Headphones (Sony WH-1000XM4)",
-        description: "Noise-cancelling headphones in excellent condition. Selling because I upgraded.",
-        price: 180.0,
-        category: "Electronics",
-        location: "BMCC Entrance Hall",
-        image_url: null,
-        userId: 789012,
-      },
-    ]);
+  {
+    title: "TI-84 Plus Calculator",
+    description: "Lightly used calculator in perfect condition. Ideal for math and stats classes.",
+    price: 50.0,
+    category: "Calculators",
+    location: "BMCC Library Entrance",
+    image_url: null,
+    userId: 123456,
+    tags: ["calculator", "math", "stats", "electronics", "school"]
+  },
+  {
+    title: "Psychology 101 Textbook",
+    description: "Trade only. Looking to exchange for COM 101 book.",
+    price: null,
+    category: "Textbooks",
+    location: "Cafeteria, 3rd Floor",
+    image_url: null,
+    userId: 789012,
+    tags: ["psychology", "textbook", "education", "trade", "books"]
+  },
+  {
+    title: "MacBook Air (2017)",
+    description: "Fully functional, some cosmetic wear. Great for note-taking.",
+    price: 300.0,
+    category: "Electronics",
+    location: "Main Building Lobby",
+    image_url: null,
+    userId: 901234,
+    tags: ["laptop", "macbook", "apple", "electronics", "tech"]
+  },
+  {
+    title: "Intro to Statistics Notes",
+    description: "Comprehensive handwritten notes with summaries and solved examples.",
+    price: 15.0,
+    category: "Study Materials",
+    location: "BMCC Library 5th Floor",
+    image_url: null,
+    userId: 345678,
+    tags: ["notes", "statistics", "study", "education", "math"]
+  },
+  {
+    title: "Reusable Water Bottle (Hydro Flask)",
+    description: "Brand new, never used. Keep drinks cold all day!",
+    price: 20.0,
+    category: "Accessories",
+    location: "FitRec Entrance",
+    image_url: null,
+    userId: 567890,
+    tags: ["water bottle", "hydration", "fitness", "accessories", "eco-friendly"]
+  },
+  {
+    title: "COM 2000 Group Project Kit",
+    description: "Poster board, markers, sticky notes, and supplies for presentations.",
+    price: 10.0,
+    category: "Supplies",
+    location: "NAC Study Lounge",
+    image_url: null,
+    userId: 123456,
+    tags: ["project", "supplies", "presentation", "group work", "school"]
+  },
+  {
+    title: "Headphones (Sony WH-1000XM4)",
+    description: "Noise-cancelling headphones in excellent condition. Selling because I upgraded.",
+    price: 180.0,
+    category: "Electronics",
+    location: "BMCC Entrance Hall",
+    image_url: null,
+    userId: 789012,
+    tags: ["headphones", "sony", "audio", "electronics", "music"]
+  },
+]);
 
-    console.log(`🛍️ Seeded ${posts.length} posts`);
+console.log(`🛍️ Seeded ${posts.length} posts`);
 
-    // 4️⃣ Seed chat data
+
+    // 4️⃣ Seed chat data (now with messages)
     const chats = [
       {
         name: "BMCC Study Group",
         is_group: true,
         created_by: 123456,
         users: [123456, 789012, 345678],
+        messages: [
+          {
+            sender_id: 123456,
+            content: "Hey everyone, ready for the midterm tomorrow?",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            sender_id: 345678,
+            content: "Almost! Reviewing notes at the library now.",
+            timestamp: new Date().toISOString(),
+          },
+        ],
       },
       {
         name: null,
         is_group: false,
         created_by: 789012,
         users: [789012, 567890],
+        messages: [
+          {
+            sender_id: 567890,
+            content: "Hey, are you still selling that Hydro Flask?",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            sender_id: 789012,
+            content: "Yep! I can meet you near the FitRec entrance later.",
+            timestamp: new Date().toISOString(),
+          },
+        ],
       },
       {
         name: "Marketing Project Team",
         is_group: true,
         created_by: 345678,
         users: [345678, 901234, 789012],
+        messages: [
+          {
+            sender_id: 901234,
+            content: "I finished the slides for the presentation.",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            sender_id: 345678,
+            content: "Awesome, I’ll review them tonight.",
+            timestamp: new Date().toISOString(),
+          },
+        ],
       },
       {
         name: null,
         is_group: false,
         created_by: 901234,
         users: [901234, 123456],
+        messages: [
+          {
+            sender_id: 901234,
+            content: "Hey Alex, still interested in that MacBook?",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            sender_id: 123456,
+            content: "Yes! Can we meet in the main building lobby?",
+            timestamp: new Date().toISOString(),
+          },
+        ],
       },
       {
         name: "Weekend Meetup",
         is_group: true,
         created_by: 567890,
         users: [567890, 123456, 789012, 345678],
+        messages: [
+          {
+            sender_id: 567890,
+            content: "Who's down for brunch this weekend?",
+            timestamp: new Date().toISOString(),
+          },
+          {
+            sender_id: 789012,
+            content: "I’m in! Let’s go to the one near campus.",
+            timestamp: new Date().toISOString(),
+          },
+        ],
       },
     ];
 
     await Chat.bulkCreate(chats);
-    console.log(`💬 Seeded ${chats.length} chats`);
-
+    console.log(`💬 Seeded ${chats.length} chats with messages`);
     // 5️⃣ Verify
     const [userCount, postCount, chatCount] = await Promise.all([
       User.count(),

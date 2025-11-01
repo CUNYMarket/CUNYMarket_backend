@@ -4,9 +4,9 @@ const User = require("./user");
 
 const Post = db.define("post", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true
   },
 
   title: {
@@ -45,6 +45,12 @@ const Post = db.define("post", {
   status: {
     type: DataTypes.ENUM("open", "closed"),
     defaultValue: "open",
+  },
+
+  tags: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    allowNull: true,
+    comment: "Keywords for searching or categorizing posts",
   },
 });
 

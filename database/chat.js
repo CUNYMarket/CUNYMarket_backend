@@ -31,6 +31,12 @@ const Chat = db.define("chat", {
         allowNull: false,
         comment: "List of users (emplid) in this chat",
     },
+    messages: {
+      type: DataTypes.JSONB, // stores [{ sender_id, content, timestamp }]
+      allowNull: false,
+      defaultValue: [],
+      comment: "Array of chat message objects",
+    },
 }, {
     tableName: "chats",
     timestamps: true,
