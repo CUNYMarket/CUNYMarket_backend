@@ -44,3 +44,4 @@ User.hashPassword = function (password) {
 
 module.exports = User;
 
+
